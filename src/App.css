@@ -14,9 +14,7 @@
   content: '*';
   color: red;
 }
-#name,
-#email,
-#password {
+input {
   width: 18rem;
   height: 2rem;
 }

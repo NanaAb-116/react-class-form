@@ -1,60 +1,69 @@
 import React, { useState } from 'react';
 
-function FuncForm() {
-  const [form, setForm] = useState({ name: '', email: '', password: '' });
-
-  const handleChange = (e) => {
-    const name = e.target.name;
-    const value = e.target.value;
-    // console.log(name, value);
-    setForm({ ...form, [name]: value });
-  };
-
+function FunctionForm() {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [gen, setGen] = useState('');
+  const [students, setStudents] = useState([]);
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(form);
-    setForm({ name: '', email: '', password: '' });
+    setStudents(
+      [...students, { name, email, gen }],
+      setName(''),
+      setEmail(''),
+      setGen('')
+    );
   };
 
   return (
-    <div>
+    <>
       <form className='form'>
-        <label htmlFor='name'>Name</label>
-        <br />
+        <label className='required'>Name:</label> <br />
         <input
           type='text'
           name='name'
-          id='name'
-          value={form.name}
-          onChange={handleChange}
+          value={name}
+          onChange={(e) => {
+            setName(e.target.value);
+          }}
         />
         <br />
-        <label htmlFor='email'>Email</label>
-        <br />
+        <label className='required'>Email:</label> <br />
         <input
-          type='email'
+          type='text'
           name='email'
-          id='email'
-          value={form.email}
-          onChange={handleChange}
+          value={email}
+          onChange={(e) => {
+            setEmail(e.target.value);
+          }}
         />
         <br />
-        <label htmlFor='password'>Password</label>
-        <br />
+        <label className='required'>Gen:</label> <br />
         <input
-          type='password'
-          name='password'
-          id='password'
-          value={form.password}
-          onChange={handleChange}
+          type='text'
+          name='gen'
+          value={gen}
+          onChange={(e) => {
+            setGen(e.target.value);
+          }}
         />
         <br />
-        <button type='submit' className='submit-btn' onClick={handleSubmit}>
+        <button className='submit-btn' onClick={handleSubmit}>
           Submit
         </button>
       </form>
-    </div>
+      {students.map((item, index) => {
+        return (
+          <div key={index}>
+            <h1>{item.name}</h1>
+            <h2>{item.email}</h2>
+            <h3>{item.gen}</h3>
+            <hr />
+          </div>
+        );
+      })}
+    </>
   );
 }
 
-export default FuncForm;
+export default FunctionForm;

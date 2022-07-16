@@ -3,68 +3,68 @@ import React, { Component } from 'react';
 class ClassForm extends Component {
   constructor(props) {
     super();
-    this.state = { name: '', email: '', password: '' };
+    this.state = {
+      students: [{ name: 'Nana', email: 'nana@gmail.com', gen: 22 }],
+    };
   }
+  handleRegister = (e) => {
+    e.preventDefault();
+    this.setState({ [e.target.name]: e.target.value });
+  };
   handleSubmit = (e) => {
     e.preventDefault();
-    console.log(this.state);
-  };
-
-  handleChange = (name) => (e) => {
     this.setState({
-      [name]: e.target.value,
+      students: [
+        ...this.state.students,
+        { name: this.state.name, email: this.state.email, gen: this.state.gen },
+      ],
     });
   };
 
   render() {
     return (
-      <div>
+      <>
         <form className='form'>
-          <label htmlFor='name' className='required'>
-            Name
-          </label>
-          <br />
+          <label className='required'>Name:</label> <br />
           <input
             type='text'
             name='name'
-            id='name'
-            value={this.state.name}
-            onChange={this.handleChange('name')}
+            value={this.state.students.name}
+            onChange={this.handleRegister}
           />
           <br />
-          <label htmlFor='email' className='required'>
-            Email
-          </label>
-          <br />
+          <label className='required'>Email:</label> <br />
           <input
-            type='email'
+            type='text'
             name='email'
-            id='email'
-            value={this.state.email}
-            onChange={this.handleChange('email')}
+            value={this.state.students.email}
+            onChange={this.handleRegister}
           />
           <br />
-          <label htmlFor='password' className='required'>
-            Password
-          </label>
-          <br />
+          <label className='required'>Gen:</label> <br />
           <input
-            type='password'
-            name='password'
-            id='password'
-            value={this.state.password}
-            onChange={this.handleChange('password')}
+            type='text'
+            name='gen'
+            value={this.state.students.gen}
+            onChange={this.handleRegister}
           />
           <br />
-          <button
-            type='submit'
-            className='submit-btn'
-            onClick={this.handleSubmit}
-          >
+          <button className='submit-btn' onClick={this.handleSubmit}>
             Submit
           </button>
         </form>
-      </div>
+
+        {this.state.students.map((student, index) => {
+          return (
+            <div key={index}>
+              <h1>name:{student.name}</h1>
+              <h2>email : {student.email}</h2>
+              <h3>gen : {student.gen}</h3>
+              <hr />
+            </div>
+          );
+        })}
+      </>
     );
   }
 }
